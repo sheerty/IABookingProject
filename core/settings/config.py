@@ -2,8 +2,8 @@ from enum import Enum
 
 
 class Users(Enum):
-    USERNAME = 'username'
+    USERNAME = 'admin'
     PASSWORD = 'password123'
 
 class Timeouts(Enum):
-    TIMEOUT = 5
+    TIMEOUT = 50

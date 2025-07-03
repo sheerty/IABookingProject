@@ -67,14 +67,11 @@ class ApiClient:
         with allure.step('Updating header with Authorization'):
             self.session.headers.update({'Authorization': f'Bearer {token}'})
 
-    def get_booking_by_id(self, booking_id):
-        with allure.step('Getting booking by id'):
-            url = f'{self.base_url}{Endpoints.BOOKING_ENDPOINT.value}/{booking_id}'
-            response = self.session.get(url)
-            response.raise_for_status()
-        with allure.step('Assert status code'):
-            assert response.status_code == 200,f'Expected status code 200 but got {response.status_code}'
-        return response.json()
+    def get_booking_ids(self, params=None):
+        with allure.step('Getting booking ids'):
+            url = f'{self.base_url}{Endpoints.BOOKING_ENDPOINT.value}'
+            response = self.session.get(url, params=params)
+        return response
 
     def delete_booking_by_id(self, booking_id):
         with allure.step('Deleting booking by id'):

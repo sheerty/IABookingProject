@@ -92,14 +92,15 @@ class ApiClient:
             response = self.session.post(url, json=booking_data, headers=headers)
         return response
 
-    def get_booking(self, params=None):
+    def get_booking(self, id):
         with allure.step('Getting booking by id'):
-            url = f'{self.base_url}{Endpoints.BOOKING_ENDPOINT.value}'
-            response = self.session.get(url, params=params)
-            response.raise_for_status()
-        with allure.step('Assert status code'):
-            assert response.status_code == 200,f'Expected status code 200 but got {response.status_code}'
-        return response.json()
+            url = f'{self.base_url}{Endpoints.BOOKING_ENDPOINT.value}/{id}'
+            headers = {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }
+            response = self.session.get(url, headers=headers)
+        return response
 
     def update_booking(self, booking_data, booking_id):
         with allure.step('Updating booking'):

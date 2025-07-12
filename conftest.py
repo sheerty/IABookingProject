@@ -3,11 +3,13 @@ from faker import Faker
 import pytest
 from core.clients.api_client import ApiClient
 
+
 @pytest.fixture(scope='session')
 def api_client():
     client = ApiClient()
     client.auth()
     return client
+
 
 @pytest.fixture()
 def booking_dates():
@@ -19,6 +21,7 @@ def booking_dates():
         "checkin": checkin_date.strftime("%Y-%m-%d"),
         "checkout": checkout_date.strftime("%Y-%m-%d"),
     }
+
 
 @pytest.fixture()
 def generate_random_booking_data(booking_dates):
@@ -38,3 +41,10 @@ def generate_random_booking_data(booking_dates):
         "bookingdates": booking_dates
     }
     return data
+
+
+@pytest.fixture(scope='function')
+def create_booking(api_client, generate_random_booking_data):
+    response = api_client.create_booking(generate_random_booking_data)
+    response_json = response.json()
+    return response_json["bookingid"]

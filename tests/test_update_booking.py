@@ -48,7 +48,7 @@ def test_update_booking_emptyjson(api_client, create_booking, generate_random_bo
 
 @allure.feature("Update Booking")
 @allure.story("Updating created booking with wrong id")
-def test_update_booking(api_client, create_booking, generate_random_booking_data):
+def test_update_bookingwrongid(api_client, create_booking, generate_random_booking_data):
     with allure.step('Preparing payload'):
         payload = generate_random_booking_data
 
@@ -66,7 +66,7 @@ def test_update_booking(api_client, create_booking, generate_random_booking_data
                                            "bookingdates"])
 @allure.feature("Update Booking")
 @allure.story("Updating created booking with missing fields")
-def test_update_booking(api_client, create_booking, missing_field):
+def test_update_booking_missingfields(api_client, create_booking, missing_field):
     with allure.step('Preparing payload'):
         payload = {
             "firstname": "Doeme",

@@ -77,10 +77,7 @@ class ApiClient:
         with allure.step('Deleting booking by id'):
             url = f'{self.base_url}{Endpoints.BOOKING_ENDPOINT.value}/{booking_id}'
             response = self.session.delete(url, auth=HTTPBasicAuth(Users.USERNAME.value, Users.PASSWORD.value))
-            response.raise_for_status()
-        with allure.step('Assert status code'):
-            assert response.status_code == 200,f'Expected status code 200 but got {response.status_code}'
-        return response.status_code == 201
+        return response
 
     def create_booking(self, booking_data):
         with allure.step('Creating booking'):
